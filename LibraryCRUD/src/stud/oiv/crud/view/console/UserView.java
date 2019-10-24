@@ -34,4 +34,12 @@ public class UserView {
         System.out.println("Address:");
         System.out.print(user.getAddress());
     }
+
+    void ShowList(ArrayList<User> users){
+        System.out.println("----------------------------------------------------------");
+        for (User user:users) {
+            System.out.println(user.toString());
+        }
+        System.out.println("----------------------------------------------------------");
+    }
 }

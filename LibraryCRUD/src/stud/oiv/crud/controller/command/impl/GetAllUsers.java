@@ -1,10 +1,21 @@
 package stud.oiv.crud.controller.command.impl;
 
-import stud.oiv.crud.controller.command.Command;
+        import stud.oiv.crud.beans.Book;
+        import stud.oiv.crud.beans.User;
+        import stud.oiv.crud.controller.command.Command;
+        import stud.oiv.crud.service.factory.ServiceFactory;
+
+        import java.util.ArrayList;
 
 public class GetAllUsers implements Command {
     @Override
     public String execute(String request) {
-        return null;
+        ArrayList<User> users = ServiceFactory.getInstance().getUserService().getAllUsers();
+        String result = "";
+        for(User user: users)
+        {
+            result += user.toString() + '\n';
+        }
+        return result;
     }
 }

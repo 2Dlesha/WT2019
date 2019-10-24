@@ -3,6 +3,7 @@ package stud.oiv.crud.view.console;
 import stud.oiv.crud.beans.Book;
 import stud.oiv.crud.beans.Librarian;
 import stud.oiv.crud.beans.User;
+import stud.oiv.crud.controller.command.impl.GetAllLibrarians;
 import stud.oiv.crud.service.factory.ServiceFactory;
 
 import java.util.Scanner;
@@ -182,9 +183,10 @@ public class ConsoleView {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Librarian List");
-        for (Librarian librarian: ServiceFactory.getInstance().getLibrarianService().getAllLibrarians() )
-            System.out.println(librarian.toString());
-
+        //for (Librarian librarian: ServiceFactory.getInstance().getLibrarianService().getAllLibrarians() )
+        //    System.out.println(librarian.toString());
+        var r = new GetAllLibrarians();
+        System.out.println(r.execute(null));
 
         while (!endOfAction) {
             System.out.println("What are you want to do?");
