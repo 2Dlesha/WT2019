@@ -44,7 +44,7 @@ public class FileUserDAO implements UserDAO {
 
                 UserSerializer userSerializer = new UserSerializer();
                 users.add(userSerializer.ParseUser(line));
-                System.out.println(line);
+                //System.out.println(line);
             }
         }
         catch (IOException e)

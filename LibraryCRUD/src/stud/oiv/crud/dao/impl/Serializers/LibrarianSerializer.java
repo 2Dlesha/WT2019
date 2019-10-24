@@ -10,7 +10,7 @@ public class LibrarianSerializer {
     {
         String[] librarianInfo = librarianAsString.split(delimeter);
 
-        if(librarianInfo.length != 6)
+        if(librarianInfo.length != 5)
             return null;
 
         Librarian result = new Librarian(librarianInfo[2],librarianInfo[3],librarianInfo[4]);

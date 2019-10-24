@@ -1,4 +1,6 @@
-StudyBook&Math&Geometrics&150&xz&15
+StudyBook&Math&Geometrics&150&xz&16
 ArtBook&Роман&Война и мир&500&Лев&15
 Comics&Action&none&IronMan&50&Sten Li&154
 Comics&Singlepage&dfdf&Venom&123&KOko&0
+Comics&Action&Color&X-men&34&StenLi&0
+Comics&genre&type&name&228&auth&17

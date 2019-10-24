@@ -52,6 +52,9 @@ public class ConsoleView {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Book List");
+        for (Book book: ServiceFactory.getInstance().getLibraryService().getAllBooks() ) {
+            System.out.println(book.toString());
+        }
         while (!endOfAction) {
             System.out.println("What are you want to do?");
             System.out.println("1. Edit book");
@@ -118,11 +121,13 @@ public class ConsoleView {
     }
 
     public void ShowMembers(){
-        System.out.println("User List");
         boolean endOfAction = false;
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("User List");
+        for (User user1: ServiceFactory.getInstance().getUserService().getAllUsers() )
+            System.out.println(user1.toString());
+
         while (!endOfAction) {
             System.out.println("What are you want to do?");
             System.out.println("1. Edit User");
@@ -139,7 +144,7 @@ public class ConsoleView {
                 case "1": {
                     System.out.println("Enter user id: ");
                     int userId = scanner.nextInt();
-                    User user = UserView.Show();
+                    User user = UserView.ShowCreateWindow();
                     ServiceFactory.getInstance().getUserService().updateUser(userId,user);
                     break;
                 }
@@ -150,7 +155,7 @@ public class ConsoleView {
                     break;
                 }
                 case "3": {
-                    User user = UserView.Show();
+                    User user = UserView.ShowCreateWindow();
                     ServiceFactory.getInstance().getUserService().addUser(user);
                     break;
                 }
@@ -173,11 +178,14 @@ public class ConsoleView {
     }
 
     public void ShowLibrarians(){
-        System.out.println("Librarian List");
         boolean endOfAction = false;
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Librarian List");
+        for (Librarian librarian: ServiceFactory.getInstance().getLibrarianService().getAllLibrarians() )
+            System.out.println(librarian.toString());
+
+
         while (!endOfAction) {
             System.out.println("What are you want to do?");
             System.out.println("1. Edit Librarian");

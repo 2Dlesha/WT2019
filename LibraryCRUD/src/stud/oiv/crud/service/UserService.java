@@ -15,4 +15,8 @@ public interface UserService {
     void addBookToUser(User user, Book book);
     void deleteBookFromUser(User user, Book book);
     ArrayList<Book> getUserBooks(User user);
+    ArrayList<User> sortByFirstName();
+    ArrayList<User> sortByAddress();
+    ArrayList<User> findByFirstName(String name);
 }
+

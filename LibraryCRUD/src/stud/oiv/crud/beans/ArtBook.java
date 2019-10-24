@@ -19,4 +19,10 @@ public class ArtBook extends Book
     {
         Genre = genre;
     }
+
+    @Override
+    public String toString() {
+        //return this.getName() + " " + this.getPageCount() + " " + this.getAuthor() + " " + Genre;
+        return String.format("id: %-20s  name: %-20s  page count: %-20d  author: %-20s  genre: %-20s",this.getId() ,this.getName() , this.getPageCount() , this.getAuthor() , Genre);
+    }
 }

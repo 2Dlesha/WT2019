@@ -6,6 +6,7 @@ import stud.oiv.crud.dao.LibrarianDAO;
 import stud.oiv.crud.service.LibrarianService;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class LibrarianServiceImpl implements LibrarianService {
 
@@ -42,5 +43,22 @@ public class LibrarianServiceImpl implements LibrarianService {
         DAOFactory daoFactory = DAOFactory.getInstance();
         LibrarianDAO librarianDAO = daoFactory.getLibrarianDAO();
         librarianDAO.updateById(id,librarian);
+    }
+
+    @Override
+    public  ArrayList<Librarian>  sortByFirstName() {
+        DAOFactory daoFactory = DAOFactory.getInstance();
+        LibrarianDAO librarianDAO = daoFactory.getLibrarianDAO();
+        ArrayList<Librarian> librarians = librarianDAO.getAll();
+        librarians.sort(new LibrarianFirstNameComparator());
+        return librarians;
+    }
+
+    class LibrarianFirstNameComparator implements Comparator<Librarian> {
+
+        public int compare(Librarian a, Librarian b){
+
+            return a.getFirstName().compareTo(b.getFirstName());
+        }
     }
 }

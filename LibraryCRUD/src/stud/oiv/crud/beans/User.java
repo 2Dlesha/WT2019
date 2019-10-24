@@ -77,6 +77,6 @@ public  class User extends Identifier implements Comparable<User>
 
     @Override
     public String toString() {
-        return this.getId() + " " + LastName + " " + FirstName;
+        return String.format("id: %-20s  last name: %-20s  first name: %-20s date of membership: %-20s address: %-20s ", this.getId(), LastName, FirstName, DateOfMembership, Address);
     }
 }

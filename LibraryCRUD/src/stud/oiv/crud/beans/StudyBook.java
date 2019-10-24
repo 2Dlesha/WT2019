@@ -19,4 +19,10 @@ public class StudyBook extends Book
     {
         Subject = subject;
     }
+
+    @Override
+    public String toString() {
+        //return this.getName() + " " + this.getPageCount() + " " + this.getAuthor() + " " + Subject;
+        return String.format("id: %-20s  name: %-20s  page count: %-20d  author: %-20s subject: %-20s", this.getId(), this.getName(), this.getPageCount(), this.getAuthor(), Subject);
+    }
 }

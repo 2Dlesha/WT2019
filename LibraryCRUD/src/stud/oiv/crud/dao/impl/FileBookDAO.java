@@ -46,7 +46,7 @@ public class FileBookDAO implements BookDAO {
 
                 BookSerializerFactory bookSerializerFactory = new BookSerializerFactory();
                 books.add(bookSerializerFactory.ParseBook(line));
-                System.out.println(line);
+                //System.out.println(line);
             }
         }
         catch (IOException e)

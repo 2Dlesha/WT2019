@@ -6,6 +6,7 @@ import stud.oiv.crud.dao.factory.DAOFactory;
 import stud.oiv.crud.service.LibraryService;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class LibraryServiceImpl implements LibraryService {
     @Override
@@ -48,5 +49,60 @@ public class LibraryServiceImpl implements LibraryService {
         DAOFactory daoFactory = DAOFactory.getInstance();
         BookDAO bookDAO = daoFactory.getBookDAO();
         bookDAO.deleteById(id);
+    }
+
+    @Override
+    public ArrayList<Book> sortByPageCount()
+    {
+        DAOFactory daoFactory = DAOFactory.getInstance();
+        BookDAO bookDAO = daoFactory.getBookDAO();
+        ArrayList<Book> allusers =  bookDAO.getAll();
+        allusers.sort(new BookPageComparator());
+        return allusers;
+    }
+
+    @Override
+    public ArrayList<Book> sortByAuthor()
+    {
+        DAOFactory daoFactory = DAOFactory.getInstance();
+        BookDAO bookDAO = daoFactory.getBookDAO();
+        ArrayList<Book> allBooks =  bookDAO.getAll();
+        allBooks.sort(new BookAuthorComparator());
+        return allBooks;
+    }
+
+    @Override
+    public ArrayList<Book> findByName(String name) {
+        DAOFactory daoFactory = DAOFactory.getInstance();
+        BookDAO bookDAO = daoFactory.getBookDAO();
+        ArrayList<Book> allBooks =  bookDAO.getAll();
+        ArrayList<Book> findUsers = new ArrayList<>();
+        for (Book book:allBooks)
+        {
+            if(book.getName().equals(name))
+                findUsers.add(book);
+        }
+        return findUsers;
+    }
+
+    class BookPageComparator implements Comparator<Book> {
+
+        public int compare(Book a, Book b){
+
+            if(a.getPageCount()> b.getPageCount())
+                return 1;
+            else if(a.getPageCount()< b.getPageCount())
+                return -1;
+            else
+                return 0;
+        }
+    }
+
+    class BookAuthorComparator implements Comparator<Book>{
+
+        public int compare(Book a, Book b){
+
+            return a.getAuthor().compareTo(b.getAuthor());
+        }
     }
 }

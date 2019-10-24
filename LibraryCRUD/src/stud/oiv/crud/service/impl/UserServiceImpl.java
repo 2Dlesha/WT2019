@@ -7,6 +7,7 @@ import stud.oiv.crud.dao.UserDAO;
 import stud.oiv.crud.service.UserService;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class UserServiceImpl implements UserService {
     @Override
@@ -67,4 +68,55 @@ public class UserServiceImpl implements UserService {
     public ArrayList<Book> getUserBooks(User user) {
         return null;
     }
+
+    @Override
+    public ArrayList<User> sortByFirstName()
+    {
+        DAOFactory daoFactory = DAOFactory.getInstance();
+        UserDAO userDAO = daoFactory.getUserDAO();
+        ArrayList<User> allusers =  userDAO.getAll();
+        allusers.sort(new UserFirstNameComparator());
+        return allusers;
+    }
+
+    @Override
+    public ArrayList<User> sortByAddress()
+    {
+        DAOFactory daoFactory = DAOFactory.getInstance();
+        UserDAO userDAO = daoFactory.getUserDAO();
+        ArrayList<User> allUsers =  userDAO.getAll();
+        allUsers.sort(new UserAddressComparator());
+        return allUsers;
+    }
+
+    @Override
+    public ArrayList<User> findByFirstName(String name) {
+        DAOFactory daoFactory = DAOFactory.getInstance();
+        UserDAO userDAO = daoFactory.getUserDAO();
+        ArrayList<User> allUsers =  userDAO.getAll();
+        ArrayList<User> findUsers = new ArrayList<>();
+        for (User user:allUsers)
+        {
+            if(user.getFirstName().equals(name))
+                findUsers.add(user);
+        }
+        return findUsers;
+    }
+
+    class UserFirstNameComparator implements Comparator<User> {
+
+        public int compare(User a, User b){
+
+            return a.getFirstName().compareTo(b.getFirstName());
+        }
+    }
+
+    class UserAddressComparator implements Comparator<User>{
+
+        public int compare(User a, User b){
+
+            return a.getAddress().compareTo(b.getAddress());
+        }
+    }
+
 }

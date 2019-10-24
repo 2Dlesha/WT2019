@@ -46,4 +46,9 @@ public  class Librarian extends Identifier implements Comparable<Librarian>
     public int compareTo(Librarian o) {
         return LastName.compareTo(o.getLastName());
     }
+
+    @Override
+    public String toString() {
+        return String.format("id: %-20s  last name: %-20s  first name: %-20s phone: %-20s", this.getId(), LastName, FirstName, PhoneNumber);
+    }
 }

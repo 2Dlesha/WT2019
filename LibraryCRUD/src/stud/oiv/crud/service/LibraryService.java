@@ -11,4 +11,7 @@ public interface LibraryService {
     void update(Integer id,Book book);
     void deleteBook(Book book);
     void deleteBookById(Integer id);
+    ArrayList<Book> sortByPageCount();
+    ArrayList<Book> sortByAuthor();
+    ArrayList<Book> findByName(String name);
 }

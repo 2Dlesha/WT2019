@@ -10,4 +10,5 @@ public interface LibrarianService {
     void deleteLibrarian(Librarian librarian);
     void addLibrarian(Librarian librarian);
     void updateLibrarian(Integer id,Librarian librarian);
+    ArrayList<Librarian> sortByFirstName();
 }
