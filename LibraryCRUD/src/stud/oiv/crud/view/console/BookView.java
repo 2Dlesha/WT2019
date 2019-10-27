@@ -6,7 +6,7 @@ import stud.oiv.crud.service.factory.ServiceFactory;
 import java.util.ArrayList;
 
 public interface BookView {
-    Book ShowCreateWindow();
+    String ShowCreateWindow();
     default void ShowList(ArrayList<Book> books){
         System.out.println("----------------------------------------------------------");
         for (Book book: books ) {

@@ -19,6 +19,7 @@ public class UserView {
         System.out.println("Enter address:");
         String address = scanner.nextLine();
         return new User(firstName,lastName,date,address,new ArrayList<Book>());
+        //return String.join("&",firstName,lastName,date,address);
     }
 
     public static void ShowInfoWindow(User user)

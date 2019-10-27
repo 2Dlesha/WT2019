@@ -2,6 +2,7 @@ package stud.oiv.crud.dao.impl;
 
 import stud.oiv.crud.beans.Identifier;
 import stud.oiv.crud.beans.User;
+import stud.oiv.crud.constants.Settings;
 import stud.oiv.crud.dao.impl.Serializers.UserSerializer;
 import stud.oiv.crud.dao.UserDAO;
 
@@ -34,7 +35,7 @@ public class FileUserDAO implements UserDAO {
 
         try
         {
-            myFile = new FileReader("D:\\Study\\University\\5 term\\WT\\LibraryCRUD\\src\\users.txt");
+            myFile = new FileReader(Settings.SourceFilePath + "\\users.txt");
             buff = new BufferedReader(myFile);
             while (true)
             {
@@ -109,7 +110,8 @@ public class FileUserDAO implements UserDAO {
     @Override
     public boolean create(User user) {
         ArrayList<User> allusers = getAllUsers();
-        user.setId(getUniqueId(allusers));
+        user.setId(Identifier.getUniq(new ArrayList<>(allusers)));
+        //user.setId(getUniqueId(allusers));
         allusers.add(user);
         saveUsersToFile(allusers);
         usersCash = null;
@@ -119,7 +121,7 @@ public class FileUserDAO implements UserDAO {
 
     public void saveUsersToFile(ArrayList<User> users)
     {
-        try(FileWriter writer = new FileWriter("D:\\Study\\University\\5 term\\WT\\LibraryCRUD\\src\\users.txt", false))
+        try(FileWriter writer = new FileWriter(Settings.SourceFilePath + "\\users.txt", false))
         {
             for(User user: users)
             {
@@ -135,19 +137,4 @@ public class FileUserDAO implements UserDAO {
         }
     }
 
-    private int getUniqueId(ArrayList<User> users)
-    {
-        Random random = new Random(System.currentTimeMillis());
-        boolean isUniq;
-        int uniqId;
-        do {
-            isUniq = true;
-            uniqId = random.nextInt();
-            for (Identifier identifier : users) {
-                if (identifier.getId() == uniqId)
-                    isUniq = false;
-            }
-        }while (isUniq);
-        return uniqId;
-    }
 }

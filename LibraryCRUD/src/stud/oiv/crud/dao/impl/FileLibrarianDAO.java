@@ -2,6 +2,7 @@ package stud.oiv.crud.dao.impl;
 
 import stud.oiv.crud.beans.Identifier;
 import stud.oiv.crud.beans.Librarian;
+import stud.oiv.crud.constants.Settings;
 import stud.oiv.crud.dao.impl.Serializers.LibrarianSerializer;
 import stud.oiv.crud.dao.LibrarianDAO;
 
@@ -31,7 +32,7 @@ public class FileLibrarianDAO implements LibrarianDAO {
 
         try
         {
-            myFile = new FileReader("D:\\Study\\University\\5 term\\WT\\LibraryCRUD\\src\\librarians.txt");
+            myFile = new FileReader(Settings.SourceFilePath + "\\librarians.txt");
             buff = new BufferedReader(myFile);
             while (true)
             {
@@ -105,7 +106,8 @@ public class FileLibrarianDAO implements LibrarianDAO {
     @Override
     public boolean create(Librarian librarian) {
         ArrayList<Librarian> librarians = getAllLibrarians();
-        librarian.setId(getUniqueId(librarians));
+        //librarian.setId(getUniqueId(librarians));
+        librarian.setId(Identifier.getUniq(new ArrayList<>(librarians)));
         librarians.add(librarian);
         saveLibrarianToFile(librarians);
         return true;
@@ -113,7 +115,7 @@ public class FileLibrarianDAO implements LibrarianDAO {
 
     public void saveLibrarianToFile(ArrayList<Librarian> librarians)
     {
-        try(FileWriter writer = new FileWriter("D:\\Study\\University\\5 term\\WT\\LibraryCRUD\\src\\librarians.txt", false))
+        try(FileWriter writer = new FileWriter(Settings.SourceFilePath + "\\librarians.txt", false))
         {
             for(Librarian librarian: librarians)
             {
@@ -129,19 +131,4 @@ public class FileLibrarianDAO implements LibrarianDAO {
         }
     }
 
-    private int getUniqueId(ArrayList<Librarian> librarians)
-    {
-        Random random = new Random(System.currentTimeMillis());
-        boolean isUniq;
-        int uniqId;
-        do {
-            isUniq = true;
-            uniqId = random.nextInt();
-            for (Identifier identifier : librarians) {
-                if (identifier.getId() == uniqId)
-                    isUniq = false;
-            }
-        }while (isUniq);
-        return uniqId;
-    }
 }

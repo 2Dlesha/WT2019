@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class ComicsView implements BookView {
     @Override
-    public Book ShowCreateWindow() {
+    public String ShowCreateWindow() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter name:");
         String name = scanner.nextLine();
@@ -20,6 +20,7 @@ public class ComicsView implements BookView {
         String genre = scanner.nextLine();
         System.out.println("Enter type:");
         String type = scanner.nextLine();
-        return new Comics(name,pageCount,author,genre,type);
+        //return new Comics(name,pageCount,author,genre,type);
+        return String.join("&",name,Integer.toString(pageCount),author,genre,type);
     }
 }

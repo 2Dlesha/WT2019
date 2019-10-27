@@ -34,12 +34,12 @@ public  class Identifier
         int uniqId;
         do {
             isUniq = true;
-            uniqId = random.nextInt();
+            uniqId = Math.abs(random.nextInt());
             for (Identifier identifier : identifiers) {
                 if (identifier.getId() == uniqId)
                     isUniq = false;
             }
-        }while (isUniq);
+        }while (!isUniq);
         return uniqId;
     }
 }

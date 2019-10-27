@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class StudyBookView implements BookView {
     @Override
-    public Book ShowCreateWindow() {
+    public String ShowCreateWindow() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter name:");
         String name = scanner.nextLine();
@@ -18,6 +18,7 @@ public class StudyBookView implements BookView {
         String author = scanner.nextLine();
         System.out.println("Enter subject:");
         String subject = scanner.nextLine();
-        return new StudyBook(name,pageCount,author,subject);
+        //return new StudyBook(name,pageCount,author,subject);
+        return String.join("&",name,Integer.toString(pageCount),author,subject);
     }
 }

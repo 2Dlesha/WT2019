@@ -2,6 +2,7 @@ package stud.oiv.crud.dao.impl;
 
 import stud.oiv.crud.beans.Book;
 import stud.oiv.crud.beans.Identifier;
+import stud.oiv.crud.constants.Settings;
 import stud.oiv.crud.dao.BookDAO;
 import stud.oiv.crud.dao.impl.Serializers.BookSerializerFactory;
 
@@ -25,7 +26,7 @@ public class FileBookDAO implements BookDAO {
         return (ArrayList<Book>) books.clone();
     }
 
-    public ArrayList<Book> getAllBooks() {
+    private ArrayList<Book> getAllBooks() {
         if(booksCash != null)
             return booksCash;
 
@@ -36,7 +37,7 @@ public class FileBookDAO implements BookDAO {
 
         try
         {
-            myFile = new FileReader("D:\\Study\\University\\5 term\\WT\\LibraryCRUD\\src\\books.txt");
+            myFile = new FileReader(Settings.SourceFilePath + "\\books.txt");
             buff = new BufferedReader(myFile);
             while (true)
             {
@@ -132,7 +133,7 @@ public class FileBookDAO implements BookDAO {
 
     public void saveBooksToFile(ArrayList<Book> books)
     {
-        try(FileWriter writer = new FileWriter("D:\\Study\\University\\5 term\\WT\\LibraryCRUD\\src\\books.txt", false))
+        try(FileWriter writer = new FileWriter(Settings.SourceFilePath + "\\books.txt", false))
         {
             for(Book book: books)
             {

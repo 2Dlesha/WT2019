@@ -3,7 +3,10 @@ package stud.oiv.crud.view.console;
 import stud.oiv.crud.beans.Book;
 import stud.oiv.crud.beans.Librarian;
 import stud.oiv.crud.beans.User;
-import stud.oiv.crud.controller.command.impl.GetAllLibrarians;
+import stud.oiv.crud.beans.factory.BookFactory;
+import stud.oiv.crud.controller.command.Command;
+import stud.oiv.crud.controller.command.impl.bookCommands.*;
+import stud.oiv.crud.controller.command.impl.librarianCommands.GetAllLibrarians;
 import stud.oiv.crud.service.factory.ServiceFactory;
 
 import java.util.Scanner;
@@ -56,14 +59,19 @@ public class ConsoleView {
         for (Book book: ServiceFactory.getInstance().getLibraryService().getAllBooks() ) {
             System.out.println(book.toString());
         }
+
+
         while (!endOfAction) {
+
             System.out.println("What are you want to do?");
             System.out.println("1. Edit book");
             System.out.println("2. Delete book");
             System.out.println("3. Create book");
             System.out.println("4. Sort by ascending");
             System.out.println("5. Sort by descending");
-            System.out.println("6. Exit");
+            System.out.println("6. Find book by name");
+            System.out.println("7. Find book by author");
+            System.out.println("8. Exit");
 
 
             String chosenNumber = scanner.nextLine();
@@ -74,20 +82,24 @@ public class ConsoleView {
                     String bookType = scanner.nextLine();
                     System.out.println("Enter book id: ");
                     int bookId = scanner.nextInt();
+                    scanner.nextLine();
                     BookView bookView = BookViewFactory.GetView(bookType);
                     if(bookView == null)
                     {
                         System.out.println("Incorrect book type");
                         continue;
                     }
-                    Book book = bookView.ShowCreateWindow();
-                    ServiceFactory.getInstance().getLibraryService().update(bookId,book);
+
+                    String bookFields = bookView.ShowCreateWindow();
+                    Command command = new UpdateBook();
+                    command.execute(String.join("|",Integer.toString(bookId),bookType,bookFields));
                     break;
                 }
                 case "2": {
                     System.out.println("Enter book id: ");
                     int bookId = scanner.nextInt();
-                    ServiceFactory.getInstance().getLibraryService().deleteBookById(bookId);
+                    Command command = new RemoveBook();
+                    command.execute(Integer.toString(bookId));
                     break;
                 }
                 case "3": {
@@ -99,17 +111,38 @@ public class ConsoleView {
                         System.out.println("Incorrect book type");
                         continue;
                     }
-                    Book book = bookView.ShowCreateWindow();
-                    ServiceFactory.getInstance().getLibraryService().addBook(book);
+
+                    String bookFields = bookView.ShowCreateWindow();
+                    AddBook command = new AddBook();
+                    command.execute(String.join("|",bookType,bookFields));
                     break;
                 }
                 case "4": {
+                    Command command = new SortBookByAscending();
+                    System.out.println(command.execute(null));
                     break;
+
                 }
                 case "5": {
+                    Command command = new SortBookByDescending();
+                    System.out.println(command.execute(null));
                     break;
                 }
-                case "6":
+                case "6": {
+                    System.out.println("Enter book name: ");
+                    String bookName = scanner.nextLine();
+                    Command command = new FindBookByName();
+                    System.out.println(command.execute(bookName ));
+                    break;
+                }
+                case "7": {
+                    System.out.println("Enter author name: ");
+                    String authorName = scanner.nextLine();
+                    Command command = new FindBookByAuthor();
+                    System.out.println(command.execute(authorName));
+                    break;
+                }
+                case "8":
                     {
                         endOfAction = true;
                         break;

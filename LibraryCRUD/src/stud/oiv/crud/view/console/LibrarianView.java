@@ -17,6 +17,7 @@ public class LibrarianView {
         System.out.println("Enter phone number:");
         String phoneNumber = scanner.nextLine();
         return new Librarian(firstName,lastName,phoneNumber);
+        //return String.join("&",firstName,lastName,phoneNumber);
     }
 
     void ShowList(ArrayList<Librarian> librarians){

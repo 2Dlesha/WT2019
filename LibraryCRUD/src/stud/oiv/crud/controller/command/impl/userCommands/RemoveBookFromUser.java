@@ -1,4 +1,4 @@
-package stud.oiv.crud.controller.command.impl;
+package stud.oiv.crud.controller.command.impl.userCommands;
 
 import stud.oiv.crud.controller.command.Command;
 
