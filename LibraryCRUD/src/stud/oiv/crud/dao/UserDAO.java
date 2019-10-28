@@ -1,5 +1,6 @@
 package stud.oiv.crud.dao;
 
+import stud.oiv.crud.beans.Book;
 import stud.oiv.crud.beans.User;
 
 import java.util.ArrayList;
@@ -17,4 +18,8 @@ public interface UserDAO {
     boolean delete(User user);
 
     boolean create(User user);
+
+    boolean addBookToUser(Integer userId, Integer bookId);
+
+    boolean RemoveBookFromUser(Integer userId, Integer bookId);
 }

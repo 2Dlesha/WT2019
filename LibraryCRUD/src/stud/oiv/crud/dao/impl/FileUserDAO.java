@@ -1,8 +1,10 @@
 package stud.oiv.crud.dao.impl;
 
+import stud.oiv.crud.beans.Book;
 import stud.oiv.crud.beans.Identifier;
 import stud.oiv.crud.beans.User;
 import stud.oiv.crud.constants.Settings;
+import stud.oiv.crud.dao.factory.DAOFactory;
 import stud.oiv.crud.dao.impl.Serializers.UserSerializer;
 import stud.oiv.crud.dao.UserDAO;
 
@@ -30,6 +32,7 @@ public class FileUserDAO implements UserDAO {
         if (usersCash != null)
             return usersCash;
         ArrayList<User> users = new ArrayList<>();
+        ArrayList<Book> availibleBooks = DAOFactory.getInstance().getBookDAO().getAll();
         BufferedReader buff = null;
         FileReader myFile = null;
 
@@ -44,7 +47,7 @@ public class FileUserDAO implements UserDAO {
                     break;
 
                 UserSerializer userSerializer = new UserSerializer();
-                users.add(userSerializer.ParseUser(line));
+                users.add(userSerializer.ParseUser( line, availibleBooks));
                 //System.out.println(line);
             }
         }
@@ -116,6 +119,39 @@ public class FileUserDAO implements UserDAO {
         saveUsersToFile(allusers);
         usersCash = null;
         return true;
+    }
+
+    @Override
+    public boolean addBookToUser(Integer userId, Integer bookId) {
+        Book book = DAOFactory.getInstance().getBookDAO().getById(bookId);
+        User user = getById(userId);
+        if(book != null && user != null)
+        {
+            var userbooks = user.getBooks();
+            userbooks.add(book);
+            user.setBooks(userbooks);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean RemoveBookFromUser(Integer userId, Integer bookId) {
+        User user = getById(userId);
+        if(user != null)
+        {
+            var userbooks = user.getBooks();
+            for(int i = 0; i < userbooks.size();i++)
+            {
+                if(userbooks.get(i).getId() == bookId)
+                {
+                    userbooks.remove(i);
+                    user.setBooks(userbooks);
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
 

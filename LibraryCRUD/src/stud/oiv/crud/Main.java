@@ -11,15 +11,5 @@ public class Main {
         consoleView.Show();
         System.out.println("End");
     }
-
-    private void  BookDAOSaveTest()
-    {
-        FileBookDAO test = new FileBookDAO();
-        var res = test.getAll();
-        res.add(new StudyBook("Geometrics",150,"xz","Math"));
-        res.add(new ArtBook("Война и мир",500,"Лев","Роман"));
-        res.add(new Comics("IronMan",50,"Sten Li","Action","none"));
-        test.saveBooksToFile(res);
-    }
 }
 

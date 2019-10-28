@@ -19,6 +19,5 @@ public class ArtBookView implements BookView {
         System.out.println("Enter genre:");
         String genre = scanner.nextLine();
         return String.join("&",name,Integer.toString(pageCount),author,genre);
-        //return new ArtBook(name,pageCount,author,genre);
     }
 }

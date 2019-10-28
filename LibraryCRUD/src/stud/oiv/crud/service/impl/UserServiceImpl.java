@@ -53,20 +53,22 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void addBookToUser(User user, Book book) {
+    public void addBookToUser(Integer userId, Integer bookId) {
         DAOFactory daoFactory = DAOFactory.getInstance();
         UserDAO userDAO = daoFactory.getUserDAO();
+        userDAO.addBookToUser(userId,bookId);
     }
 
     @Override
-    public void deleteBookFromUser(User user, Book book) {
+    public void deleteBookFromUser(Integer userId, Integer bookId) {
         DAOFactory daoFactory = DAOFactory.getInstance();
         UserDAO userDAO = daoFactory.getUserDAO();
+        userDAO.RemoveBookFromUser(userId,bookId);
     }
 
     @Override
-    public ArrayList<Book> getUserBooks(User user) {
-        return null;
+    public ArrayList<Book> getUserBooks(Integer userId) {
+       return getUser(userId).getBooks();
     }
 
     @Override

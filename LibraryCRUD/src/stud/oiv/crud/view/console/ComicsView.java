@@ -20,7 +20,6 @@ public class ComicsView implements BookView {
         String genre = scanner.nextLine();
         System.out.println("Enter type:");
         String type = scanner.nextLine();
-        //return new Comics(name,pageCount,author,genre,type);
         return String.join("&",name,Integer.toString(pageCount),author,genre,type);
     }
 }

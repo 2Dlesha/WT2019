@@ -1,7 +1,6 @@
 StudyBook&Math&Geometrics&150&xz&16
-ArtBook&Роман&Война и мир&500&Лев&15
 Comics&Action&none&IronMan&50&Sten Li&154
 Comics&Singlepage&dfdf&Venom&123&KOko&1
 Comics&Action&Color&X-men&34&StenLi&0
 Comics&action&color&Batman&12&unknown&93118415
-Comics&sdf&sdf&sdf&345&sdf&182415248
+Comics&Action,comedy&Color&deadpool&55&xz&1112627738

@@ -8,7 +8,7 @@ public class AddLibrarian implements Command {
     @Override
     public String execute(String request) {
         String bookFields[] = request.split("&");
-        if(bookFields.length != 4)
+        if(bookFields.length != 3)
             return "Incorrect values";
         Librarian librarian = new Librarian(bookFields[0],bookFields[1],bookFields[2]);
         ServiceFactory.getInstance().getLibrarianService().addLibrarian(librarian);

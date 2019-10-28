@@ -8,6 +8,11 @@ package stud.oiv.crud.controller.command.impl.userCommands;
         import java.util.ArrayList;
 
 public class GetAllUsers implements Command {
+
+    /**
+     * <p>Возвращает всех пользователей ввиде строки</p>
+     * @param request не используется
+     */
     @Override
     public String execute(String request) {
         ArrayList<User> users = ServiceFactory.getInstance().getUserService().getAllUsers();

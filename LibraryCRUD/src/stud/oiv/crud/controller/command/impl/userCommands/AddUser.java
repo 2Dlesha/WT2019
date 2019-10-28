@@ -8,6 +8,11 @@ import stud.oiv.crud.service.factory.ServiceFactory;
 import java.util.ArrayList;
 
 public class AddUser implements Command {
+
+    /**
+     * <p>Создает пользователя с указанным набором полей</p>
+     * @param request поля пользователя через &
+     */
     @Override
     public String execute(String request) {
         String bookFields[] = request.split("&");

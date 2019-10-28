@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class LibrarianView {
-    public static Librarian ShowCreateWindow()
+    public static String ShowCreateWindow()
     {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter first name:");
@@ -16,8 +16,8 @@ public class LibrarianView {
         String lastName = scanner.nextLine();
         System.out.println("Enter phone number:");
         String phoneNumber = scanner.nextLine();
-        return new Librarian(firstName,lastName,phoneNumber);
-        //return String.join("&",firstName,lastName,phoneNumber);
+        //return new Librarian(firstName,lastName,phoneNumber);
+        return String.join("&",firstName,lastName,phoneNumber);
     }
 
     void ShowList(ArrayList<Librarian> librarians){

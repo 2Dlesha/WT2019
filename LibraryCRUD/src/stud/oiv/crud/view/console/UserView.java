@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class UserView {
-    public static User ShowCreateWindow()
+    public static String ShowCreateWindow()
     {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter first name:");
@@ -18,8 +18,8 @@ public class UserView {
         String date = scanner.nextLine();
         System.out.println("Enter address:");
         String address = scanner.nextLine();
-        return new User(firstName,lastName,date,address,new ArrayList<Book>());
-        //return String.join("&",firstName,lastName,date,address);
+        //return new User(firstName,lastName,date,address,new ArrayList<Book>());
+        return String.join("&",firstName,lastName,date,address);
     }
 
     public static void ShowInfoWindow(User user)

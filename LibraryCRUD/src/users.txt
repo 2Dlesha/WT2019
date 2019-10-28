@@ -1,1 +1,3 @@
-User&0&Ilya&Oleshko&2019&Minsk
+User&0&Ilya&Oleshko&2019&0&0%
+User&1753117070&Илья&Олешко&200&Дружный&0%
+User&1620793132&Antonio&Banderas&2019-09-08&Mexico&

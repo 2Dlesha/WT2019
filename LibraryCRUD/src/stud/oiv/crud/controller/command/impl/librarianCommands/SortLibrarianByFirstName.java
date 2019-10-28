@@ -6,7 +6,7 @@ import stud.oiv.crud.service.factory.ServiceFactory;
 
 import java.util.ArrayList;
 
-public class SortLibararianByFirstName implements Command {
+public class SortLibrarianByFirstName implements Command {
     @Override
     public String execute(String request) {
         ArrayList<Librarian> librarians = ServiceFactory.getInstance().getLibrarianService().sortByFirstName();
