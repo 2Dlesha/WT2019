@@ -3,6 +3,7 @@ package stud.oiv.crud.dao.impl;
 import stud.oiv.crud.beans.Identifier;
 import stud.oiv.crud.beans.Librarian;
 import stud.oiv.crud.constants.Settings;
+import stud.oiv.crud.dao.DAOException;
 import stud.oiv.crud.dao.impl.Serializers.LibrarianSerializer;
 import stud.oiv.crud.dao.LibrarianDAO;
 
@@ -18,12 +19,12 @@ public class FileLibrarianDAO implements LibrarianDAO {
     private ArrayList<Librarian> librariansCash = null;
 
     @Override
-    public ArrayList<Librarian> getAll() {
+    public ArrayList<Librarian> getAll()throws DAOException {
         ArrayList<Librarian> librarians = getAllLibrarians();
         return (ArrayList<Librarian>) librarians.clone();
     }
 
-    public ArrayList<Librarian> getAllLibrarians() {
+    public ArrayList<Librarian> getAllLibrarians() throws DAOException{
         if(librariansCash != null)
           return librariansCash;
         ArrayList<Librarian> librarians = new ArrayList<>();
@@ -42,12 +43,13 @@ public class FileLibrarianDAO implements LibrarianDAO {
 
                 LibrarianSerializer librarianSerializer = new LibrarianSerializer();
                 librarians.add(librarianSerializer.ParseLibrarian(line));
-                System.out.println(line);
+                //System.out.println(line);
             }
         }
         catch (IOException e)
         {
             e.printStackTrace();
+            throw new DAOException(e);
         }
         finally
         {
@@ -59,6 +61,7 @@ public class FileLibrarianDAO implements LibrarianDAO {
             catch (IOException e1)
             {
                 e1.printStackTrace();
+                throw new DAOException(e1);
             }
         }
         librariansCash = librarians;
@@ -66,7 +69,7 @@ public class FileLibrarianDAO implements LibrarianDAO {
     }
 
     @Override
-    public Librarian getById(Integer id) {
+    public Librarian getById(Integer id) throws DAOException {
         Librarian result = null;
         ArrayList<Librarian> allLibrarians = getAllLibrarians();
         for(Librarian librarian : allLibrarians)
@@ -78,12 +81,12 @@ public class FileLibrarianDAO implements LibrarianDAO {
     }
 
     @Override
-    public Librarian updateById(Integer id,Librarian librarian) {
+    public Librarian updateById(Integer id,Librarian librarian) throws DAOException {
         return null;
     }
 
     @Override
-    public boolean deleteById(Integer id) {
+    public boolean deleteById(Integer id) throws DAOException {
         ArrayList<Librarian> allLibrarians = getAllLibrarians();
         for(int i = 0; i < allLibrarians.size();i++)
         {
@@ -99,12 +102,12 @@ public class FileLibrarianDAO implements LibrarianDAO {
     }
 
     @Override
-    public boolean delete(Librarian librarian) {
+    public boolean delete(Librarian librarian) throws DAOException {
         return false;
     }
 
     @Override
-    public boolean create(Librarian librarian) {
+    public boolean create(Librarian librarian) throws DAOException {
         ArrayList<Librarian> librarians = getAllLibrarians();
         //librarian.setId(getUniqueId(librarians));
         librarian.setId(Identifier.getUniq(new ArrayList<>(librarians)));
@@ -113,7 +116,7 @@ public class FileLibrarianDAO implements LibrarianDAO {
         return true;
     }
 
-    public void saveLibrarianToFile(ArrayList<Librarian> librarians)
+    public void saveLibrarianToFile(ArrayList<Librarian> librarians) throws DAOException
     {
         try(FileWriter writer = new FileWriter(Settings.SourceFilePath + "\\librarians.txt", false))
         {
@@ -128,6 +131,7 @@ public class FileLibrarianDAO implements LibrarianDAO {
         catch(IOException ex){
 
             System.out.println(ex.getMessage());
+            throw new DAOException(ex);
         }
     }
 

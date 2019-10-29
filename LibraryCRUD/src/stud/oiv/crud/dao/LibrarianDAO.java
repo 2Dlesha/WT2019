@@ -6,15 +6,15 @@ import java.util.ArrayList;
 
 public interface LibrarianDAO {
 
-    ArrayList<Librarian> getAll();
+    ArrayList<Librarian> getAll() throws DAOException ;
 
-    Librarian getById(Integer id);
+    Librarian getById(Integer id) throws DAOException ;
 
-    Librarian updateById(Integer id,Librarian librarian);
+    Librarian updateById(Integer id,Librarian librarian) throws DAOException ;
 
-    boolean deleteById(Integer id);
+    boolean deleteById(Integer id) throws DAOException ;
 
-    boolean delete(Librarian librarian);
+    boolean delete(Librarian librarian) throws DAOException ;
 
-    boolean create(Librarian librarian);
+    boolean create(Librarian librarian) throws DAOException ;
 }

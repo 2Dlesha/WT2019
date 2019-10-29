@@ -7,19 +7,19 @@ import java.util.ArrayList;
 
 public interface UserDAO {
 
-    ArrayList<User> getAll();
+    ArrayList<User> getAll() throws DAOException ;
 
-    User getById(Integer id);
+    User getById(Integer id) throws DAOException ;
 
-    User update(User user);
+    User update(User user) throws DAOException ;
 
-    boolean deleteById(Integer id);
+    boolean deleteById(Integer id) throws DAOException ;
 
-    boolean delete(User user);
+    boolean delete(User user) throws DAOException ;
 
-    boolean create(User user);
+    boolean create(User user) throws DAOException ;
 
-    boolean addBookToUser(Integer userId, Integer bookId);
+    boolean addBookToUser(Integer userId, Integer bookId) throws DAOException ;
 
-    boolean RemoveBookFromUser(Integer userId, Integer bookId);
+    boolean RemoveBookFromUser(Integer userId, Integer bookId) throws DAOException ;
 }

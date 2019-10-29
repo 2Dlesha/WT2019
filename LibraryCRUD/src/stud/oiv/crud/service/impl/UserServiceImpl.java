@@ -2,8 +2,10 @@ package stud.oiv.crud.service.impl;
 
 import stud.oiv.crud.beans.Book;
 import stud.oiv.crud.beans.User;
+import stud.oiv.crud.dao.DAOException;
 import stud.oiv.crud.dao.factory.DAOFactory;
 import stud.oiv.crud.dao.UserDAO;
+import stud.oiv.crud.service.LogicException;
 import stud.oiv.crud.service.UserService;
 
 import java.util.ArrayList;
@@ -11,91 +13,177 @@ import java.util.Comparator;
 
 public class UserServiceImpl implements UserService {
     @Override
-    public ArrayList<User> getAllUsers() {
+    public ArrayList<User> getAllUsers() throws LogicException {
         DAOFactory daoFactory = DAOFactory.getInstance();
         UserDAO userDAO = daoFactory.getUserDAO();
-        return userDAO.getAll();
+        ArrayList<User> allUsers;
+        try
+        {
+            allUsers =  userDAO.getAll();
+        }
+        catch (DAOException e)
+        {
+            throw new LogicException(e);
+        }
+        return allUsers;
     }
 
     @Override
-    public User getUser(Integer id) {
+    public User getUser(Integer id) throws LogicException {
         DAOFactory daoFactory = DAOFactory.getInstance();
         UserDAO userDAO = daoFactory.getUserDAO();
-        return userDAO.getById(id);
+        User result;
+        try
+        {
+            result = userDAO.getById(id);
+        }
+        catch (DAOException e)
+        {
+            throw new LogicException(e);
+        }
+        return result;
     }
 
     @Override
-    public void addUser(User user) {
+    public void addUser(User user) throws LogicException {
         DAOFactory daoFactory = DAOFactory.getInstance();
         UserDAO userDAO = daoFactory.getUserDAO();
-        userDAO.create(user);
+        try
+        {
+            userDAO.create(user);
+        }
+        catch (DAOException e)
+        {
+            throw new LogicException(e);
+        }
     }
 
     @Override
-    public void updateUser(Integer id, User user) {
+    public void updateUser(Integer id, User user) throws LogicException {
         DAOFactory daoFactory = DAOFactory.getInstance();
         UserDAO userDAO = daoFactory.getUserDAO();
-        userDAO.update(user);
+        try
+        {
+            userDAO.update(user);
+        }
+        catch (DAOException e)
+        {
+            throw new LogicException(e);
+        }
     }
 
     @Override
-    public void deleteUserById(Integer id) {
+    public void deleteUserById(Integer id) throws LogicException {
         DAOFactory daoFactory = DAOFactory.getInstance();
         UserDAO userDAO = daoFactory.getUserDAO();
-        userDAO.deleteById(id);
+        try
+        {
+            userDAO.deleteById(id);
+        }
+        catch (DAOException e)
+        {
+            throw new LogicException(e);
+        }
     }
 
     @Override
-    public void deleteUser(User user) {
+    public void deleteUser(User user) throws LogicException {
         DAOFactory daoFactory = DAOFactory.getInstance();
         UserDAO userDAO = daoFactory.getUserDAO();
-        userDAO.delete(user);
+        try
+        {
+            userDAO.delete(user);
+        }
+        catch (DAOException e)
+        {
+            throw new LogicException(e);
+        }
     }
 
     @Override
-    public void addBookToUser(Integer userId, Integer bookId) {
+    public void addBookToUser(Integer userId, Integer bookId) throws LogicException {
         DAOFactory daoFactory = DAOFactory.getInstance();
         UserDAO userDAO = daoFactory.getUserDAO();
-        userDAO.addBookToUser(userId,bookId);
+        try
+        {
+            userDAO.addBookToUser(userId,bookId);
+        }
+        catch (DAOException e)
+        {
+            throw new LogicException(e);
+        }
     }
 
     @Override
-    public void deleteBookFromUser(Integer userId, Integer bookId) {
+    public void deleteBookFromUser(Integer userId, Integer bookId) throws LogicException {
         DAOFactory daoFactory = DAOFactory.getInstance();
         UserDAO userDAO = daoFactory.getUserDAO();
-        userDAO.RemoveBookFromUser(userId,bookId);
+        try
+        {
+            userDAO.RemoveBookFromUser(userId,bookId);
+        }
+        catch (DAOException e)
+        {
+            throw new LogicException(e);
+        }
     }
 
     @Override
-    public ArrayList<Book> getUserBooks(Integer userId) {
+    public ArrayList<Book> getUserBooks(Integer userId) throws LogicException {
        return getUser(userId).getBooks();
     }
 
     @Override
-    public ArrayList<User> sortByFirstName()
+    public ArrayList<User> sortByFirstName() throws LogicException
     {
         DAOFactory daoFactory = DAOFactory.getInstance();
         UserDAO userDAO = daoFactory.getUserDAO();
-        ArrayList<User> allusers =  userDAO.getAll();
-        allusers.sort(new UserFirstNameComparator());
-        return allusers;
+        ArrayList<User> allUsers;
+        try
+        {
+            allUsers =  userDAO.getAll();
+        }
+        catch (DAOException e)
+        {
+            throw new LogicException(e);
+        }
+        allUsers.sort(new UserFirstNameComparator());
+        return allUsers;
     }
 
     @Override
-    public ArrayList<User> sortByAddress()
+    public ArrayList<User> sortByAddress() throws LogicException
     {
         DAOFactory daoFactory = DAOFactory.getInstance();
         UserDAO userDAO = daoFactory.getUserDAO();
-        ArrayList<User> allUsers =  userDAO.getAll();
+        ArrayList<User> allUsers;
+        try
+        {
+            allUsers =  userDAO.getAll();
+        }
+        catch (DAOException e)
+        {
+            throw new LogicException(e);
+        }
         allUsers.sort(new UserAddressComparator());
         return allUsers;
     }
 
     @Override
-    public ArrayList<User> findByFirstName(String name) {
+    public ArrayList<User> findByFirstName(String name) throws LogicException {
         DAOFactory daoFactory = DAOFactory.getInstance();
         UserDAO userDAO = daoFactory.getUserDAO();
-        ArrayList<User> allUsers =  userDAO.getAll();
+
+        ArrayList<User> allUsers;
+        try
+        {
+            allUsers =  userDAO.getAll();
+        }
+        catch (DAOException e)
+        {
+            throw new LogicException(e);
+        }
+
         ArrayList<User> findUsers = new ArrayList<>();
         for (User user:allUsers)
         {

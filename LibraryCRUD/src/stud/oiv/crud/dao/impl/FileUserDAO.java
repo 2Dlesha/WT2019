@@ -4,6 +4,7 @@ import stud.oiv.crud.beans.Book;
 import stud.oiv.crud.beans.Identifier;
 import stud.oiv.crud.beans.User;
 import stud.oiv.crud.constants.Settings;
+import stud.oiv.crud.dao.DAOException;
 import stud.oiv.crud.dao.factory.DAOFactory;
 import stud.oiv.crud.dao.impl.Serializers.UserSerializer;
 import stud.oiv.crud.dao.UserDAO;
@@ -23,12 +24,12 @@ public class FileUserDAO implements UserDAO {
 
     @Override
 
-    public ArrayList<User> getAll() {
+    public ArrayList<User> getAll() throws DAOException {
         ArrayList<User> users = getAllUsers();
         return (ArrayList<User>)users.clone();
     }
 
-    private ArrayList<User> getAllUsers() {
+    private ArrayList<User> getAllUsers() throws DAOException {
         if (usersCash != null)
             return usersCash;
         ArrayList<User> users = new ArrayList<>();
@@ -54,6 +55,7 @@ public class FileUserDAO implements UserDAO {
         catch (IOException e)
         {
             e.printStackTrace();
+            throw new DAOException(e);
         }
         finally
         {
@@ -65,6 +67,7 @@ public class FileUserDAO implements UserDAO {
             catch (IOException e1)
             {
                 e1.printStackTrace();
+                throw new DAOException(e1);
             }
         }
 
@@ -73,7 +76,7 @@ public class FileUserDAO implements UserDAO {
     }
 
     @Override
-    public User getById(Integer id) {
+    public User getById(Integer id) throws DAOException {
         User result = null;
         ArrayList<User> allusers = getAllUsers();
         for(User user : allusers)
@@ -85,12 +88,12 @@ public class FileUserDAO implements UserDAO {
     }
 
     @Override
-    public User update(User user) {
+    public User update(User user) throws DAOException  {
         return null;
     }
 
     @Override
-    public boolean deleteById(Integer id) {
+    public boolean deleteById(Integer id) throws DAOException  {
         ArrayList<User> allusers = getAllUsers();
         for(int i = 0; i < allusers.size();i++)
         {
@@ -106,12 +109,12 @@ public class FileUserDAO implements UserDAO {
     }
 
     @Override
-    public boolean delete(User user) {
+    public boolean delete(User user) throws DAOException {
         return false;
     }
 
     @Override
-    public boolean create(User user) {
+    public boolean create(User user) throws DAOException {
         ArrayList<User> allusers = getAllUsers();
         user.setId(Identifier.getUniq(new ArrayList<>(allusers)));
         //user.setId(getUniqueId(allusers));
@@ -122,7 +125,7 @@ public class FileUserDAO implements UserDAO {
     }
 
     @Override
-    public boolean addBookToUser(Integer userId, Integer bookId) {
+    public boolean addBookToUser(Integer userId, Integer bookId) throws DAOException {
         Book book = DAOFactory.getInstance().getBookDAO().getById(bookId);
         User user = getById(userId);
         if(book != null && user != null)
@@ -136,7 +139,7 @@ public class FileUserDAO implements UserDAO {
     }
 
     @Override
-    public boolean RemoveBookFromUser(Integer userId, Integer bookId) {
+    public boolean RemoveBookFromUser(Integer userId, Integer bookId) throws DAOException {
         User user = getById(userId);
         if(user != null)
         {
@@ -155,7 +158,7 @@ public class FileUserDAO implements UserDAO {
     }
 
 
-    public void saveUsersToFile(ArrayList<User> users)
+    public void saveUsersToFile(ArrayList<User> users) throws DAOException
     {
         try(FileWriter writer = new FileWriter(Settings.SourceFilePath + "\\users.txt", false))
         {
@@ -170,6 +173,7 @@ public class FileUserDAO implements UserDAO {
         catch(IOException ex){
 
             System.out.println(ex.getMessage());
+            throw new DAOException(ex);
         }
     }
 

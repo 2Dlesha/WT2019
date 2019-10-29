@@ -30,7 +30,7 @@ public class ArtBookSerializer extends BookSerializer {
 
         ArtBook comics = (ArtBook)book;
 
-        String result = null;
+        String result = "";
         result = "ArtBook" + delimeter + comics.getGenre() + delimeter + comics.getName() + delimeter + comics.getPageCount() + delimeter + comics.getAuthor() + delimeter + comics.getId() ;
         return result;
     }

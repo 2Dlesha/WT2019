@@ -4,6 +4,7 @@ import stud.oiv.crud.beans.Book;
 import stud.oiv.crud.beans.Identifier;
 import stud.oiv.crud.constants.Settings;
 import stud.oiv.crud.dao.BookDAO;
+import stud.oiv.crud.dao.DAOException;
 import stud.oiv.crud.dao.impl.Serializers.BookSerializerFactory;
 
 import java.io.BufferedReader;
@@ -21,12 +22,12 @@ public class FileBookDAO implements BookDAO {
     private ArrayList<Book> booksCash = null;
 
     @Override
-    public ArrayList<Book> getAll() {
+    public ArrayList<Book> getAll() throws DAOException {
         ArrayList<Book> books = getAllBooks();
         return (ArrayList<Book>) books.clone();
     }
 
-    private ArrayList<Book> getAllBooks() {
+    private ArrayList<Book> getAllBooks() throws DAOException {
         if(booksCash != null)
             return booksCash;
 
@@ -53,6 +54,7 @@ public class FileBookDAO implements BookDAO {
         catch (IOException e)
         {
             e.printStackTrace();
+            throw new DAOException(e);
         }
         finally
         {
@@ -64,6 +66,7 @@ public class FileBookDAO implements BookDAO {
             catch (IOException e1)
             {
                 e1.printStackTrace();
+                throw new DAOException(e1);
             }
         }
         booksCash = books;
@@ -72,7 +75,7 @@ public class FileBookDAO implements BookDAO {
 
 
     @Override
-    public Book getById(Integer id) {
+    public Book getById(Integer id) throws DAOException {
         Book result = null;
         ArrayList<Book> allbooks = getAllBooks();
         for(Book book : allbooks)
@@ -84,7 +87,7 @@ public class FileBookDAO implements BookDAO {
     }
 
     @Override
-    public Book update(Integer id,Book book) {
+    public Book update(Integer id,Book book) throws DAOException {
         ArrayList<Book> allbooks = getAllBooks();
         for(int i = 0; i < allbooks.size();i++)
         {
@@ -98,7 +101,7 @@ public class FileBookDAO implements BookDAO {
     }
 
     @Override
-    public boolean deleteById(Integer id) {
+    public boolean deleteById(Integer id) throws DAOException {
         ArrayList<Book> allbooks = getAllBooks();
         for(int i = 0; i < allbooks.size();i++)
         {
@@ -113,7 +116,7 @@ public class FileBookDAO implements BookDAO {
     }
 
     @Override
-    public boolean delete(Book book) {
+    public boolean delete(Book book) throws DAOException {
         ArrayList<Book> allbooks = getAllBooks();
         allbooks.remove(book);
         saveBooksToFile(allbooks);
@@ -122,7 +125,7 @@ public class FileBookDAO implements BookDAO {
     }
 
     @Override
-    public boolean create(Book book) {
+    public boolean create(Book book) throws DAOException {
         ArrayList<Book> allbooks = getAllBooks();
         book.setId(Identifier.getUniq(new ArrayList<>(getAllBooks())));
         allbooks.add(book);
@@ -131,7 +134,7 @@ public class FileBookDAO implements BookDAO {
     }
 
 
-    public void saveBooksToFile(ArrayList<Book> books)
+    public void saveBooksToFile(ArrayList<Book> books) throws DAOException
     {
         try(FileWriter writer = new FileWriter(Settings.SourceFilePath + "\\books.txt", false))
         {
@@ -146,6 +149,7 @@ public class FileBookDAO implements BookDAO {
         catch(IOException ex){
 
             System.out.println(ex.getMessage());
+            throw new DAOException(ex);
         }
     }
 
